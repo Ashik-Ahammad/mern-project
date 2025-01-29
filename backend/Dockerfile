@@ -1,34 +1,26 @@
-# Stage 1: Build
-
-FROM node:23.6.1 AS build
+# Build stage
+FROM node:23.6.1 AS builder
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY package.json ./
 
-RUN npm install
+RUN npm install --only=production
 
 COPY . .
 
-RUN npm run build
 
-
-
-
-
-
-
-# Stage 2: Runtime
-
-FROM node:16-slim
+# Run stage
+FROM node:23.6.1 AS runner
 
 WORKDIR /app
 
-COPY --from=build /app .
+COPY --from=builder /app ./
 
 EXPOSE 5050
 
 CMD ["npm", "start"]
+
 
 
 
