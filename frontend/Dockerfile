@@ -1,10 +1,8 @@
-# Stage 1: Build
-
-FROM node:23.6.1 AS build
+FROM node:23.6.1 AS builder
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY package.json package-lock.json* ./
 
 RUN npm install
 
@@ -13,20 +11,20 @@ COPY . .
 RUN npm run build
 
 
+FROM node:23.6.1 AS runner
 
+WORKDIR /app
 
-
-
-# Stage 2: Runtime
-
-FROM nginx:alpine
-
-COPY --from=build /app/build /usr/share/nginx/html
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./
+COPY --from=builder /app/dist ./dist
 
 EXPOSE 5173
 
-CMD ["nginx", "-g", "daemon off;"]
+RUN useradd -m appuser
+USER appuser
 
+CMD ["npm", "run", "preview"]
 
 
 
