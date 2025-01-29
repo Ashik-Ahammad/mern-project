@@ -17,18 +17,16 @@ RUN npm run build
 
 
 
-
 # Stage 2: Runtime
 
-FROM node:16-slim
+FROM nginx:alpine
 
-WORKDIR /app
+COPY --from=build /app/build /usr/share/nginx/html
 
-COPY --from=build /app .
+EXPOSE 5173
 
-EXPOSE 5050
+CMD ["nginx", "-g", "daemon off;"]
 
-CMD ["npm", "start"]
 
 
 
