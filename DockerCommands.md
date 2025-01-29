@@ -17,7 +17,7 @@ git checkout -b docker-assignment
 ### **2. Build Backend Image**
 
 ```bash
-docker build -t ashikahammad/my-backend:latest ./backend
+docker build -t mern-backend .
 ```
 
 **Purpose:** Builds the backend Docker image using the `Dockerfile` inside `backend/`.
@@ -25,7 +25,7 @@ docker build -t ashikahammad/my-backend:latest ./backend
 ### **3. Build Frontend Image**
 
 ```bash
-docker build -t ashikahammad/my-frontend:latest ./frontend
+docker build -t mern-frontend:v1 .
 ```
 
 **Purpose:** Builds the frontend Docker image using the `Dockerfile` inside `frontend/`.
@@ -33,7 +33,7 @@ docker build -t ashikahammad/my-frontend:latest ./frontend
 ### **4. Run Backend Container**
 
 ```bash
-docker run -d --name backend -p 5050:5050 --network mern ashikahammad/my-backend:latest
+docker run --name=backend --network=mern -d -p 5050:5050 mern-backend
 ```
 
 **Purpose:** Runs the backend container in detached mode, exposing port 5050.
@@ -41,7 +41,7 @@ docker run -d --name backend -p 5050:5050 --network mern ashikahammad/my-backend
 ### **5. Run Frontend Container**
 
 ```bash
-docker run -d --name frontend -p 5173:5173 --network mern ashikahammad/my-frontend:latest
+docker run --name=frontend --network=mern -d -p 4173:4173 mern-frontend
 ```
 
 **Purpose:** Runs the frontend container in detached mode, exposing port 5173.
@@ -61,7 +61,7 @@ docker run -d --name mongodb -p 27017:27017 --network mern -v mongo-data:/data/d
 ### **7. Build and Start All Services (Backend, Frontend, MongoDB)**
 
 ```bash
-docker-compose up -d --build
+docker compose up -d --build
 ```
 
 **Purpose:** Builds and starts all services defined in `docker-compose.yml` in detached mode.
@@ -69,7 +69,7 @@ docker-compose up -d --build
 ### **8. Stop All Services**
 
 ```bash
-docker-compose down
+docker compose down
 ```
 
 **Purpose:** Stops and removes all running containers defined in `docker-compose.yml`.
@@ -125,8 +125,8 @@ docker login
 ### **14. Tag Docker Images**
 
 ```bash
-docker tag ashikahammad/my-backend:latest ashikahammad/my-backend:latest
-docker tag ashikahammad/my-frontend:latest ashikahammad/my-frontend:latest
+docker tag ed2926da11e8 ashikahammad/mern-backend:v1
+docker tag 8dca42ef61a4 ashikahammad/mern-frontend:v1
 ```
 
 **Purpose:** Tags images before pushing them to Docker Hub.
@@ -134,8 +134,8 @@ docker tag ashikahammad/my-frontend:latest ashikahammad/my-frontend:latest
 ### **15. Push Docker Images to Docker Hub**
 
 ```bash
-docker push ashikahammad/my-backend:latest
-docker push ashikahammad/my-frontend:latest
+docker push ashikahammad/mern-backend:v1
+docker push ashikahammad/mern-frontend:v1
 ```
 
 **Purpose:** Uploads images to Docker Hub.
@@ -147,7 +147,7 @@ docker push ashikahammad/my-frontend:latest
 ### **16. Remove Stopped Containers**
 
 ```bash
-docker rm $(docker ps -aq)
+docker rm <C ID>
 ```
 
 **Purpose:** Removes all stopped containers.
