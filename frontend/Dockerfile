@@ -11,6 +11,8 @@ COPY . .
 RUN npm run build
 
 
+
+
 FROM node:23.6.1 AS runner
 
 WORKDIR /app
@@ -25,7 +27,3 @@ RUN useradd -m appuser
 USER appuser
 
 CMD ["npm", "run", "preview"]
-
-
-
-
