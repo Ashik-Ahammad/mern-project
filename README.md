@@ -35,9 +35,3 @@
 
 
 
-
-
-![image](https://github.com/user-attachments/assets/64bab110-f304-486f-beb4-cb56e1205c89)
-
-
-![image](https://github.com/user-attachments/assets/461442b4-39df-49ab-b5e7-de690c6e2f42)
